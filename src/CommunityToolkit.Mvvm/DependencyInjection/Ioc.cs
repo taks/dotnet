@@ -121,7 +121,7 @@ public sealed class Ioc : IServiceProvider
 
         if (service is null)
         {
-            ThrowInvalidOperationExceptionForUnregisteredType();
+            ThrowInvalidOperationExceptionForUnregisteredType(typeof(T));
         }
 
         return service!;
@@ -157,9 +157,9 @@ public sealed class Ioc : IServiceProvider
     /// Throws an <see cref="InvalidOperationException"/> when the <see cref="IServiceProvider"/> property is missing a type registration.
     /// </summary>
     [DoesNotReturn]
-    private static void ThrowInvalidOperationExceptionForUnregisteredType()
+    private static void ThrowInvalidOperationExceptionForUnregisteredType(Type serviceType)
     {
-        throw new InvalidOperationException("The requested service type was not registered.");
+        throw new InvalidOperationException($"The requested service for type '{serviceType}' was not registered.");
     }
 
     /// <summary>
